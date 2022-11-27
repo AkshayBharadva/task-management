@@ -6,7 +6,7 @@ export class Task {
 }
 
 export enum TaskStatus {
-  OPEN = "OPEN",
-  DONE = "DONE",
-  IN_PROGRESS = "IN_PROGRESS"
+  OPEN = 'OPEN',
+  DONE = 'DONE',
+  IN_PROGRESS = 'IN_PROGRESS',
 }
