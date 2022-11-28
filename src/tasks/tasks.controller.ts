@@ -18,16 +18,16 @@ import { TasksStatusValidationPipe } from './pips/tasks-status-validation.pipe';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) {}
+  constructor(private readonly tasksService: TasksService) { }
 
   @Post()
   @UsePipes(ValidationPipe)
-  create(@Body() createTaskDto: CreateTaskDto): Task {
+  create(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksService.create(createTaskDto);
   }
 
   @Get()
-  findAll(@Query(ValidationPipe) filterTaskDto: FilterTaskDto): Task[] {
+  findAll(@Query(ValidationPipe) filterTaskDto: FilterTaskDto): Promise<Task[]> {
     if (Object.keys(filterTaskDto).length) {
       return this.tasksService.findAllByFilter(filterTaskDto);
     } else {
@@ -36,20 +36,20 @@ export class TasksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Task {
+  findOne(@Param('id') id: number): Promise<Task> {
     return this.tasksService.findOne(id);
   }
 
   @Patch(':id/status')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body('status', TasksStatusValidationPipe) status: TaskStatus,
-  ): Task {
+  ): Promise<Task> {
     return this.tasksService.update(id, status);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): void {
+  remove(@Param('id') id: number): void {
     this.tasksService.remove(id);
   }
 }
