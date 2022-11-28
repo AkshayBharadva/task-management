@@ -1,4 +1,3 @@
-
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
@@ -12,9 +11,7 @@ export const databaseProviders = [
         username: 'postgres',
         password: 'postgres',
         database: 'taskmanagment',
-        entities: [
-          __dirname + '/../**/*.entity{.ts,.js}',
-        ],
+        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
         logging: true,
       });

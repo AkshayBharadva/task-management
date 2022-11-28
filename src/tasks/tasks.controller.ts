@@ -18,7 +18,7 @@ import { TasksStatusValidationPipe } from './pips/tasks-status-validation.pipe';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private readonly tasksService: TasksService) { }
+  constructor(private readonly tasksService: TasksService) {}
 
   @Post()
   @UsePipes(ValidationPipe)
@@ -27,7 +27,9 @@ export class TasksController {
   }
 
   @Get()
-  findAll(@Query(ValidationPipe) filterTaskDto: FilterTaskDto): Promise<Task[]> {
+  findAll(
+    @Query(ValidationPipe) filterTaskDto: FilterTaskDto,
+  ): Promise<Task[]> {
     if (Object.keys(filterTaskDto).length) {
       return this.tasksService.findAllByFilter(filterTaskDto);
     } else {
@@ -49,7 +51,7 @@ export class TasksController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number): void {
-    this.tasksService.remove(id);
+  remove(@Param('id') id: number): Promise<Task | void> {
+    return this.tasksService.remove(id);
   }
 }

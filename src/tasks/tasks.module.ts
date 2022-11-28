@@ -9,4 +9,4 @@ import { DatabaseModule } from '../database/database.module';
   controllers: [TasksController],
   providers: [...taskProviders, TasksService],
 })
-export class TasksModule { }
+export class TasksModule {}
