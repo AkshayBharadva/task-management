@@ -3,13 +3,12 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { FilterTaskDto } from './dto/filter-task.dto';
 import { Task, TaskStatus } from './entities/task.entity';
 import { Repository } from 'typeorm';
+import { REPOSITORY } from 'src/constants';
 
 @Injectable()
 export class TasksService {
-  private tasks: Task[] = [];
-
   constructor(
-    @Inject('TASK_REPOSITORY')
+    @Inject(REPOSITORY.TASK)
     private taskRepository: Repository<Task>,
   ) {}
 
@@ -30,10 +29,9 @@ export class TasksService {
   }
 
   async findAllByFilter(filterTaskDto: FilterTaskDto): Promise<Task[]> {
-    let tasks: Task[];
     const { search, status } = filterTaskDto;
 
-    tasks = await this.taskRepository.findBy({
+    const tasks: Task[] = await this.taskRepository.findBy({
       title: search,
       description: search,
       status,

@@ -1,8 +1,9 @@
+import { REPOSITORY } from 'src/constants';
 import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
   {
-    provide: 'DATA_SOURCE',
+    provide: REPOSITORY.DATASOURCE,
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'postgres',
@@ -13,7 +14,7 @@ export const databaseProviders = [
         database: 'taskmanagment',
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
-        logging: true,
+        logging: false,
       });
 
       return dataSource.initialize();
